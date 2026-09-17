@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMESA — Learning Hub &amp; Academic Mentoring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#161F5C;
+    --navy-deep:#0D1440;
+    --navy-mid:#1F2C78;
+    --navy-light:#293B96;
+    --gold:#FFD400;
+    --gold-deep:#E8B900;
+    --white:#FFFFFF;
+    --ink:#161F5C;
+    --whatsapp:#25D366;
+    --whatsapp-deep:#1DAF57;
+    --pin:#E5473C;
+    --paper:#F6F4EC;
+    --paper-ink:#2A2F45;
+    --paper-soft:#5A5F78;
+    --line:#E1DCC9;
+    --max:1180px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--paper-ink);
+    font-family:'Poppins', sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    line-height:1.12;
+    margin:0;
+  }
+
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  .wrap{ max-width:var(--max); margin:0 auto; padding:0 28px; }
+  :focus-visible{ outline:3px solid var(--gold-deep); outline-offset:3px; }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    padding:14px 26px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    text-decoration:none;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-wa{
+    background:var(--whatsapp);
+    color:#fff;
+    box-shadow:0 6px 0 var(--whatsapp-deep);
+  }
+  .btn-wa:hover{ box-shadow:0 8px 0 var(--whatsapp-deep); }
+  .btn-wa:active{ transform:translateY(3px); box-shadow:0 3px 0 var(--whatsapp-deep); }
+  .btn-gold{
+    background:var(--gold);
+    color:var(--navy-deep);
+    box-shadow:0 6px 0 var(--gold-deep);
+  }
+  .btn-gold:hover{ box-shadow:0 8px 0 var(--gold-deep); }
+  .btn-gold:active{ transform:translateY(3px); box-shadow:0 3px 0 var(--gold-deep); }
+  .btn-outline{
+    background:transparent;
+    border:2px solid var(--navy);
+    color:var(--navy);
+  }
+  .btn-outline:hover{ background:var(--navy); color:#fff; }
+  .btn-small{ padding:10px 20px; font-size:14px; }
+  .wa-icon{ width:18px; height:18px; flex:none; }
+
+  /* ---------- Topbar ---------- */
+  .topbar{
+    background:var(--navy);
+    position:sticky;
+    top:0;
+    z-index:50;
+    border-bottom:3px solid var(--gold);
+  }
+  .topbar-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 28px;
+    max-width:var(--max);
+    margin:0 auto;
+    gap:16px;
+  }
+  .wordmark{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:24px;
+    color:#fff;
+    text-decoration:none;
+    letter-spacing:0.01em;
+  }
+  .wordmark span{ color:var(--gold); }
+  .topbar-tag{
+    font-size:12.5px;
+    color:#C7CCF2;
+    display:none;
+  }
+  @media (min-width:760px){ .topbar-tag{ display:block; } }
+
+  /* ---------- Hero (navy, banner-style) ---------- */
+  .hero{
+    background:radial-gradient(120% 140% at 15% 0%, var(--navy-light) 0%, var(--navy) 45%, var(--navy-deep) 100%);
+    color:#fff;
+    padding:56px 0 70px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before,
+  .hero::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:#ffffff08;
+  }
+  .hero::before{ width:340px; height:340px; top:-140px; right:-100px; }
+  .hero::after{ width:220px; height:220px; bottom:-100px; left:30%; }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:0.95fr 1.3fr 0.85fr;
+    gap:32px;
+    align-items:start;
+    position:relative;
+  }
+  @media (max-width:980px){
+    .hero-grid{ grid-template-columns:1fr; }
+  }
+
+  .brand-block{ text-align:left; }
+  .cap-icon{ width:64px; height:auto; margin-bottom:10px; }
+  .brand-name{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(30px, 4vw, 40px);
+    color:#fff;
+    letter-spacing:0.01em;
+    line-height:1;
+  }
+  .brand-tagline{
+    margin-top:8px;
+    font-size:14.5px;
+    color:var(--gold);
+    font-weight:600;
+    max-width:20ch;
+  }
+  .brand-rule{
+    margin-top:18px;
+    width:120px;
+    height:4px;
+    background:var(--gold);
+    border-radius:4px;
+  }
+
+  .brush{
+    display:inline-block;
+    background:var(--gold);
+    color:var(--navy-deep);
+    padding:9px 20px;
+    border-radius:26px 8px 26px 8px;
+    transform:rotate(-1deg);
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:clamp(19px, 2.6vw, 26px);
+    box-shadow:0 4px 0 var(--gold-deep);
+  }
+  .hero-title{
+    margin-top:14px;
+    font-size:clamp(24px, 3.4vw, 34px);
+    color:#fff;
+  }
+  .offer-list{
+    list-style:none;
+    margin:24px 0 0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .offer-item{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    background:#ffffff0d;
+    border:2px solid #ffffff55;
+    border-radius:999px;
+    padding:10px 22px 10px 10px;
+  }
+  .offer-badge{
+    flex:none;
+    width:46px; height:46px;
+    border-radius:50%;
+    background:var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size:21px;
+  }
+  .offer-text b{
+    display:block;
+    font-family:'Baloo 2', sans-serif;
+    font-size:16.5px;
+    color:#fff;
+    font-weight:700;
+  }
+  .offer-text b em{
+    color:var(--gold);
+    font-style:normal;
+  }
+  .offer-text span{
+    display:block;
+    font-size:13px;
+    color:#C7CCF2;
+    margin-top:1px;
+  }
+  .limited-strip{
+    margin-top:22px;
+    display:inline-block;
+    background:var(--gold);
+    color:var(--navy-deep);
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15.5px;
+    padding:10px 22px;
+    border-radius:8px 22px 8px 22px;
+    transform:rotate(-0.6deg);
+  }
+
+  .hero-side{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .side-perk{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .side-perk .dot{
+    flex:none;
+    width:30px; height:30px;
+    border-radius:50%;
+    background:var(--gold);
+    color:var(--navy-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800;
+    font-size:15px;
+  }
+  .side-perk p{
+    margin:0;
+    font-size:14.5px;
+    color:#EDEFFB;
+    font-weight:500;
+  }
+  .contact-card{
+    margin-top:6px;
+    background:var(--gold);
+    border-radius:14px 14px 14px 14px;
+    padding:16px 18px;
+    transform:rotate(-0.5deg);
+    box-shadow:0 5px 0 var(--gold-deep);
+  }
+  .contact-card-label{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:14px;
+    color:var(--navy-deep);
+    margin-bottom:2px;
+  }
+  .contact-card-number{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:22px;
+    color:var(--navy-deep);
+  }
+  .address-line{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    margin-top:4px;
+  }
+  .address-line p{
+    margin:0;
+    font-size:13.5px;
+    color:#EDEFFB;
+    line-height:1.5;
+  }
+  .address-line p b{ color:#fff; }
+
+  .hero-cta-row{
+    margin-top:26px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+
+  /* ---------- Section shell ---------- */
+  section{ padding:74px 0; }
+  .section-head{ max-width:60ch; margin-bottom:42px; }
+  .eyebrow-badge{
+    display:inline-block;
+    background:var(--navy);
+    color:var(--gold);
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:13px;
+    padding:6px 16px;
+    border-radius:999px;
+    margin-bottom:14px;
+  }
+  .section-head h2{
+    font-size:clamp(26px, 3.4vw, 36px);
+    color:var(--navy);
+  }
+  .section-head p{
+    margin-top:14px;
+    color:var(--paper-soft);
+    font-size:16px;
+    max-width:54ch;
+  }
+
+  /* ---------- Authority ---------- */
+  .authority{ background:#fff; }
+  .authority-grid{
+    display:grid;
+    grid-template-columns:0.8fr 1.2fr;
+    gap:48px;
+    align-items:start;
+  }
+  @media (max-width:820px){ .authority-grid{ grid-template-columns:1fr; } }
+  .mentor-badge{
+    background:var(--navy);
+    border-radius:18px;
+    padding:26px;
+    text-align:center;
+    position:relative;
+  }
+  .mentor-badge .circle{
+    width:110px; height:110px;
+    border-radius:50%;
+    background:var(--gold);
+    margin:0 auto 14px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif;
+    font-size:44px;
+    font-weight:800;
+    color:var(--navy-deep);
+  }
+  .mentor-badge h3{
+    color:#fff;
+    font-size:18px;
+    margin-bottom:6px;
+  }
+  .mentor-badge p{
+    color:#C7CCF2;
+    font-size:13.5px;
+    margin:0;
+  }
+  .cred-list{ display:flex; flex-direction:column; gap:20px; }
+  .cred-item{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    background:var(--paper);
+    border:2px solid var(--line);
+    border-radius:999px;
+    padding:14px 22px 14px 12px;
+  }
+  .cred-icon{
+    flex:none;
+    width:44px; height:44px;
+    border-radius:50%;
+    background:var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size:19px;
+  }
+  .cred-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    color:var(--navy);
+    font-size:16px;
+    margin-bottom:3px;
+  }
+  .cred-text{ color:var(--paper-soft); font-size:14.5px; margin:0; }
+
+  /* ---------- Features ---------- */
+  .features{ background:var(--paper); }
+  .features-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:20px;
+  }
+  @media (max-width:700px){ .features-grid{ grid-template-columns:1fr; } }
+  .feature-card{
+    background:#fff;
+    border:2px solid var(--line);
+    border-radius:20px;
+    padding:26px 26px 24px;
+    position:relative;
+  }
+  .feature-icon{
+    width:46px; height:46px;
+    border-radius:50%;
+    background:var(--navy);
+    color:var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+    margin-bottom:14px;
+  }
+  .feature-card h3{
+    font-size:18.5px;
+    color:var(--navy);
+    margin-bottom:9px;
+  }
+  .feature-card p{ color:var(--paper-soft); font-size:14.5px; margin:0; }
+
+  /* ---------- Pricing ---------- */
+  .pricing{ background:#fff; }
+  .dossier{
+    border:2px solid var(--navy);
+    border-radius:20px;
+    margin-bottom:28px;
+    overflow:hidden;
+  }
+  .dossier:last-child{ margin-bottom:0; }
+  .dossier-head{
+    background:var(--navy);
+    color:#fff;
+    padding:16px 26px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .dossier.featured .dossier-head{ background:var(--pin); }
+  .dossier-head h3{
+    color:#fff;
+    font-size:19px;
+  }
+  .dossier-ribbon{
+    font-family:'Baloo 2', sans-serif;
+    font-size:12px;
+    font-weight:700;
+    background:var(--gold);
+    color:var(--navy-deep);
+    padding:5px 12px;
+    border-radius:999px;
+  }
+  .dossier-body{ padding:24px 26px 28px; background:var(--paper); }
+  .dossier-desc{ color:var(--paper-soft); font-size:14.5px; max-width:64ch; margin-bottom:20px; }
+  .plan-table-wrap{ overflow-x:auto; margin-bottom:20px; }
+  .plan-table{ width:100%; border-collapse:collapse; }
+  .plan-table th{
+    text-align:left;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--paper-soft);
+    font-weight:600;
+    padding:0 14px 10px 0;
+    border-bottom:2px solid var(--line);
+  }
+  .plan-table td{
+    padding:14px 14px 14px 0;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+    font-size:14.5px;
+  }
+  .plan-table tr:last-child td{ border-bottom:none; }
+  .plan-name{ font-family:'Baloo 2', sans-serif; font-weight:700; color:var(--navy); white-space:nowrap; }
+  .plan-price{ font-weight:700; color:var(--pin); white-space:nowrap; text-align:right; }
+  .pricing-note{ font-size:13.5px; color:var(--paper-soft); margin-top:6px; font-style:italic; }
+
+  /* ---------- FAQ ---------- */
+  .faq{ background:var(--paper); }
+  .faq-list{ max-width:76ch; }
+  .faq-item{ border-bottom:2px solid var(--line); }
+  .faq-item:first-child{ border-top:2px solid var(--line); }
+  .faq-item summary{
+    cursor:pointer;
+    padding:20px 4px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    color:var(--navy);
+    font-size:16px;
+    list-style:none;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{
+    content:"+";
+    font-family:'Baloo 2', sans-serif;
+    font-size:24px;
+    color:var(--pin);
+    flex:none;
+    transition:transform 0.2s ease;
+  }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-answer{ padding:0 4px 22px; color:var(--paper-soft); font-size:14.5px; max-width:66ch; }
+
+  /* ---------- Closing ---------- */
+  .closing{
+    background:radial-gradient(120% 140% at 85% 100%, var(--navy-light) 0%, var(--navy) 45%, var(--navy-deep) 100%);
+    color:#fff;
+    text-align:left;
+  }
+  .closing h2{ color:#fff; font-size:clamp(26px, 3.6vw, 38px); max-width:17ch; }
+  .closing p{ color:#C7CCF2; margin-top:16px; max-width:52ch; font-size:16px; }
+  .closing .hero-cta-row{ margin-top:26px; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:26px 0 100px;
+    background:var(--navy-deep);
+    color:#B7BDE8;
+  }
+  .footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:13px;
+  }
+  @media (max-width:600px){ footer{ padding-bottom:120px; } }
+
+  /* ---------- Sticky mobile CTA ---------- */
+  .sticky-cta{
+    display:none;
+    position:fixed;
+    bottom:0; left:0; right:0;
+    background:var(--navy-deep);
+    padding:12px 16px;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom));
+    z-index:60;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border-top:3px solid var(--gold);
+  }
+  .sticky-cta-text{ color:#fff; font-size:13.5px; font-family:'Baloo 2', sans-serif; font-weight:700; }
+  .sticky-cta-text small{ display:block; font-weight:400; font-family:'Poppins', sans-serif; color:#B7BDE8; font-size:11.5px; }
+  @media (max-width:700px){ .sticky-cta{ display:flex; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="wordmark">SIMESA<span>.</span></a>
+    <div class="topbar-tag">Learning Hub &amp; Academic Mentoring — Malang</div>
+    <a href="https://wa.me/6281249419716" class="btn btn-gold btn-small">
+      <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a7.9 7.9 0 0 1-2.3-1.4 8.6 8.6 0 0 1-1.6-2c-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5a.5.5 0 0 0 0-.5c-.1-.1-.7-1.7-1-2.3s-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.5 3.5 0 0 0-1.1 2.6c0 1.5 1.1 3 1.3 3.2s2.2 3.4 5.3 4.7a17 17 0 0 0 1.8.7 4.3 4.3 0 0 0 2 .1 3.2 3.2 0 0 0 2.1-1.5 2.6 2.6 0 0 0 .2-1.5c-.1-.1-.3-.2-.6-.3z"/></svg>
+      Chat WA
+    </a>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+
+      <!-- Brand block -->
+      <div class="brand-block">
+        <svg class="cap-icon" viewBox="0 0 64 64" fill="none">
+          <path d="M32 10 4 22l28 12 28-12z" fill="#fff"/>
+          <path d="M16 28v12c0 4 7.2 8 16 8s16-4 16-8V28l-16 7z" fill="#fff" opacity="0.9"/>
+          <rect x="58" y="22" width="2.4" height="16" fill="#FFD400"/>
+          <circle cx="59.2" cy="40" r="2.4" fill="#FFD400"/>
+        </svg>
+        <div class="brand-name">SIMESA</div>
+        <div class="brand-tagline">Learning Hub &amp; Academic Mentoring</div>
+        <div class="brand-rule"></div>
+        <p style="margin-top:20px; color:#C7CCF2; font-size:14.5px; max-width:26ch;">Sinergi Menuju Sukses Akademik — bimbel rumahan berbasis riset, logika, dan penalaran.</p>
+      </div>
+
+      <!-- Offer list -->
+      <div>
+        <span class="brush">Menerima Pendaftaran</span>
+        <h1 class="hero-title">Siswa &amp; mahasiswa, ayo gabung sebelum kelas penuh!</h1>
+
+        <ul class="offer-list">
+          <li class="offer-item">
+            <span class="offer-badge">🎓</span>
+            <span class="offer-text">
+              <b>Bimbingan <em>Skripsi &amp; KTI</em></b>
+              <span>Bedah Judul, Bab 1–5, Olah Data</span>
+            </span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-badge">📖</span>
+            <span class="offer-text">
+              <b>Semi-Privat <em>SMP – SMA</em></b>
+              <span>Matematika Dasar &amp; Biologi</span>
+            </span>
+          </li>
+          <li class="offer-item">
+            <span class="offer-badge">🌐</span>
+            <span class="offer-text">
+              <b>Kursus <em>Bahasa</em></b>
+              <span>Bahasa Inggris &amp; Jepang Pemula</span>
+            </span>
+          </li>
+        </ul>
+
+        <span class="limited-strip">Kelas Terbatas! Maksimal hanya 3 siswa per kelas.</span>
+
+        <div class="hero-cta-row">
+          <a href="https://wa.me/6281249419716?text=Halo%20Kak%2C%20saya%20mau%20daftar%20Trial%20Class%20SIMESA" class="btn btn-wa">
+            <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a7.9 7.9 0 0 1-2.3-1.4 8.6 8.6 0 0 1-1.6-2c-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5a.5.5 0 0 0 0-.5c-.1-.1-.7-1.7-1-2.3s-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.5 3.5 0 0 0-1.1 2.6c0 1.5 1.1 3 1.3 3.2s2.2 3.4 5.3 4.7a17 17 0 0 0 1.8.7 4.3 4.3 0 0 0 2 .1 3.2 3.2 0 0 0 2.1-1.5 2.6 2.6 0 0 0 .2-1.5c-.1-.1-.3-.2-.6-.3z"/></svg>
+            Daftar trial class gratis
+          </a>
+        </div>
+      </div>
+
+      <!-- Side info -->
+      <div class="hero-side">
+        <div class="side-perk">
+          <span class="dot">✓</span>
+          <p>Melayani kelas Offline (rumahan) &amp; Online</p>
+        </div>
+        <div class="side-perk">
+          <span class="dot">✓</span>
+          <p>Bisa konsultasi &amp; bantu PR sekolah tiap hari</p>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-card-label">Hubungi WA</div>
+          <div class="contact-card-number">0812-4941-9716</div>
+        </div>
+
+        <div class="address-line">
+          <span class="dot" style="background:var(--pin); color:#fff;">📍</span>
+          <p><b>Pendaftaran langsung:</b><br>Jl. Simpang Emas 1 No. 11<br>atau hubungi nomor di atas</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AUTHORITY -->
+  <section class="authority">
+    <div class="wrap authority-grid">
+      <div class="mentor-badge">
+        <div class="circle">S</div>
+        <h3>Pendamping Belajar</h3>
+        <p>Mahasiswa Agribisnis · Praktisi Riset · Penulis KTI</p>
+      </div>
+      <div>
+        <span class="eyebrow-badge">Kenapa SIMESA</span>
+        <h2 style="margin-bottom:16px; font-size:clamp(24px,3vw,32px); color:var(--navy);">Bukan sekadar tentor. Ini mentor yang terbiasa berpikir dengan data.</h2>
+        <p style="color:var(--paper-soft); font-size:16px; max-width:58ch; margin-bottom:28px;">SIMESA dikelola langsung oleh mentor yang aktif membimbing mahasiswa dan terjun langsung sebagai praktisi riset — bukan pengajar paruh waktu yang sekadar mengikuti modul.</p>
+
+        <div class="cred-list">
+          <div class="cred-item">
+            <span class="cred-icon">🎓</span>
+            <div>
+              <div class="cred-title">Praktisi riset &amp; penulis KTI</div>
+              <p class="cred-text">Terbiasa menyusun dan membimbing Karya Tulis Ilmiah, proposal, hingga skripsi dari nol.</p>
+            </div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">🧠</span>
+            <div>
+              <div class="cred-title">Mentor mahasiswa aktif</div>
+              <p class="cred-text">Berpengalaman mendampingi mahasiswa lain memahami materi sulit dengan cara yang masuk akal.</p>
+            </div>
+          </div>
+          <div class="cred-item">
+            <span class="cred-icon">🔬</span>
+            <div>
+              <div class="cred-title">Latar belakang sains &amp; data</div>
+              <p class="cred-text">Mahasiswa Agribisnis dengan dasar ilmu hayati — kombinasi kuat untuk Biologi, Matematika, dan olah data.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow-badge">Apa yang didapat</span>
+        <h2>Didesain untuk hasil nyata, bukan sekadar duduk di kelas ramai</h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Maksimal 3 anak per kelas</h3>
+          <p>Kelas benar-benar kecil, bukan puluhan siswa seperti bimbel besar — setiap anak dipantau langsung, bukan sekadar hadir mengikuti kelas.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Bebas konsultasi PR harian</h3>
+          <p>Ada tugas mendadak atau bingung sebelum ujian? Tanya langsung via WhatsApp, tanpa menunggu jadwal pertemuan berikutnya.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧩</div>
+          <h3>Berbasis penalaran, bukan hafalan</h3>
+          <p>Materi diajarkan dengan memahami logika di baliknya — sesuai semangat Kurikulum Merdeka dan format soal SNBT terbaru.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💸</div>
+          <h3>Harga bersahabat untuk kondisi saat ini</h3>
+          <p>Pendampingan personal dengan biaya jauh lebih ringan dibanding bimbel konvensional berskala besar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow-badge">Program &amp; harga</span>
+        <h2>Pilih program yang sesuai kebutuhanmu</h2>
+        <p>Semua paket sudah termasuk pendampingan personal, kelas kecil (maksimal 3 anak), dan akses konsultasi tambahan via WhatsApp.</p>
+      </div>
+
+      <div class="dossier">
+        <div class="dossier-head"><h3>SIMESA Research Hub</h3></div>
+        <div class="dossier-body">
+          <p class="dossier-desc">Bimbingan KTI &amp; Skripsi, privat 1-on-1 — bedah judul, Bab 1–5, dan olah data.</p>
+          <div class="plan-table-wrap">
+            <table class="plan-table">
+              <tr><th>Paket</th><th>Detail</th><th style="text-align:right;">Harga</th></tr>
+              <tr><td class="plan-name">Paket Kilat</td><td>Konsultasi per sesi (90 menit)</td><td class="plan-price">Rp75rb–100rb / sesi</td></tr>
+              <tr><td class="plan-name">Paket Sukses</td><td>Pendampingan Bab 1–3, 6x pertemuan + free tanya jawab WA</td><td class="plan-price">Rp450rb–600rb</td></tr>
+              <tr><td class="plan-name">Olah Data &amp; Statistika</td><td>Per proyek, menyesuaikan kerumitan</td><td class="plan-price">Rp250rb–350rb / proyek</td></tr>
+            </table>
+          </div>
+          <a href="https://wa.me/6281249419716?text=Halo%20Kak%2C%20saya%20mau%20konsultasi%20skripsi%2FKTI%20di%20SIMESA" class="btn btn-outline btn-small">Konsultasi skripsi sekarang</a>
+        </div>
+      </div>
+
+      <div class="dossier featured">
+        <div class="dossier-head"><h3>SIMESA Core Academic</h3><span class="dossier-ribbon">Paling diminati</span></div>
+        <div class="dossier-body">
+          <p class="dossier-desc">Les Matematika &amp; Biologi, semi-privat maksimal 3 anak — fokus nilai rapor dan persiapan SNBT.</p>
+          <div class="plan-table-wrap">
+            <table class="plan-table">
+              <tr><th>Paket</th><th>Detail</th><th style="text-align:right;">Harga</th></tr>
+              <tr><td class="plan-name">Bulanan Reguler (SMP)</td><td>8x pertemuan/bulan — nilai rapor &amp; jalur prestasi</td><td class="plan-price">Rp150rb–200rb / bln</td></tr>
+              <tr><td class="plan-name">Unggulan (SMA / SNBT)</td><td>8x pertemuan/bulan — Penalaran Matematika &amp; Literasi</td><td class="plan-price">Rp200rb–275rb / bln</td></tr>
+            </table>
+          </div>
+          <a href="https://wa.me/6281249419716?text=Halo%20Kak%2C%20saya%20mau%20daftar%20Trial%20Class%20Matematika%2FBiologi%20SIMESA" class="btn btn-wa btn-small">Daftar trial class gratis</a>
+        </div>
+      </div>
+
+      <div class="dossier">
+        <div class="dossier-head"><h3>SIMESA Linguist</h3></div>
+        <div class="dossier-body">
+          <p class="dossier-desc">Kursus Bahasa Inggris &amp; Jepang, semi-privat maksimal 3 anak.</p>
+          <div class="plan-table-wrap">
+            <table class="plan-table">
+              <tr><th>Paket</th><th>Detail</th><th style="text-align:right;">Harga</th></tr>
+              <tr><td class="plan-name">English Booster (SD–SMP)</td><td>8x pertemuan/bulan — kosakata &amp; percakapan dasar</td><td class="plan-price">Rp150rb / bln</td></tr>
+              <tr><td class="plan-name">Japanese Starter</td><td>8x pertemuan/bulan — Hiragana, Katakana, JLPT N5</td><td class="plan-price">Rp250rb–300rb / bln</td></tr>
+            </table>
+          </div>
+          <a href="https://wa.me/6281249419716?text=Halo%20Kak%2C%20saya%20mau%20coba%20kelas%20Bahasa%20di%20SIMESA" class="btn btn-outline btn-small">Coba kelas bahasa gratis</a>
+        </div>
+      </div>
+
+      <p class="pricing-note">*Kisaran harga dapat menyesuaikan kebutuhan spesifik siswa/mahasiswa. Hubungi kami via WhatsApp untuk penawaran yang paling sesuai.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow-badge">Pertanyaan umum</span>
+        <h2>Masih ada yang ingin ditanyakan?</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Apa bedanya kelas offline dan online di SIMESA?</summary>
+          <div class="faq-answer">Kelas Offline diadakan langsung di rumah/lokasi belajar Malang Kota. Kelas Online tersedia untuk seluruh Indonesia via video call, dengan materi dan kualitas pendampingan yang sama.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Apakah benar-benar ada trial class gratis?</summary>
+          <div class="faq-answer">Ya. Kamu bisa mencoba sesi pertama secara gratis sebelum memutuskan lanjut ke paket bulanan atau paket privat.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Bagaimana sistem pembayarannya?</summary>
+          <div class="faq-answer">Paket bulanan dibayar di awal periode 8 pertemuan. Untuk Research Hub, tersedia Paket Kilat per sesi jika belum ingin komitmen ke paket besar. Pembayaran via transfer bank atau e-wallet.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Apakah ada diskon untuk pendaftaran berkelompok?</summary>
+          <div class="faq-answer">Ada kemungkinan penyesuaian harga untuk kakak-adik atau teman satu kelompok belajar. Tanyakan langsung via WhatsApp untuk penawaran terbaik.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Kalau berhalangan hadir, apakah sesinya hangus?</summary>
+          <div class="faq-answer">Sesi yang berhalangan dapat dijadwalkan ulang (reschedule) sesuai kesepakatan, selama masih dalam periode paket yang berjalan.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Materi sudah sesuai Kurikulum Merdeka dan format SNBT terbaru?</summary>
+          <div class="faq-answer">Sudah — pendekatan belajar SIMESA mengikuti arah Kurikulum Merdeka dan format soal penalaran ala SNBT.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing">
+    <div class="wrap">
+      <span class="eyebrow-badge" style="background:var(--gold); color:var(--navy-deep);">Ayo mulai</span>
+      <h2>Jangan tunggu nilai turun atau skripsi makin molor.</h2>
+      <p>Mulai dari trial class gratis hari ini — rasakan sendiri bedanya belajar dengan pendampingan yang benar-benar personal.</p>
+      <div class="hero-cta-row">
+        <a href="https://wa.me/6281249419716?text=Halo%20Kak%2C%20saya%20mau%20coba%20Trial%20Class%20SIMESA" class="btn btn-wa">
+          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1a7.9 7.9 0 0 1-2.3-1.4 8.6 8.6 0 0 1-1.6-2c-.2-.3 0-.4.1-.6l.4-.5c.1-.2.2-.3.3-.5a.5.5 0 0 0 0-.5c-.1-.1-.7-1.7-1-2.3s-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.5 3.5 0 0 0-1.1 2.6c0 1.5 1.1 3 1.3 3.2s2.2 3.4 5.3 4.7a17 17 0 0 0 1.8.7 4.3 4.3 0 0 0 2 .1 3.2 3.2 0 0 0 2.1-1.5 2.6 2.6 0 0 0 .2-1.5c-.1-.1-.3-.2-.6-.3z"/></svg>
+          Chat SIMESA di WhatsApp sekarang
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div>SIMESA — Sinergi Menuju Sukses Akademik, Malang</div>
+    <div>Jl. Simpang Emas 1 No. 11 · 0812-4941-9716</div>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <div class="sticky-cta-text">Trial gratis, slot terbatas<small>Chat langsung via WhatsApp</small></div>
+  <a href="https://wa.me/6281249419716?text=Halo%20Kak%2C%20saya%20mau%20coba%20Trial%20Class%20SIMESA" class="btn btn-wa btn-small">Chat WA</a>
+</div>
+
+</body>
+</html>
